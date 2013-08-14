@@ -4,6 +4,7 @@ namespace DoctrineORMModuleTest\Form;
 
 use DoctrineORMModule\Form\Annotation\AnnotationBuilder;
 use DoctrineORMModuleTest\Assets\Entity\Issue237;
+use DoctrineORMModuleTest\Assets\Entity\UniqueConstraintEntity;
 use DoctrineORMModuleTest\Framework\TestCase;
 
 class AnnotationBuilderTest extends TestCase
@@ -38,5 +39,13 @@ class AnnotationBuilderTest extends TestCase
         $spec = $this->builder->getFormSpecification('DoctrineORMModuleTest\\Assets\\Entity\\Issue237');
 
         $this->assertCount(0, $spec['elements'], 'Annotation builder allows also class names');
+    }
+
+    public function testUniqueConstraint()
+    {
+        $entity = new UniqueConstraintEntity();
+        $spec   = $this->builder->getFormSpecification($entity);
+
+        $this->assertCount(1, $spec['elements']);
     }
 }
